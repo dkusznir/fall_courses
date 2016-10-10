@@ -62,20 +62,3 @@ def calculate_measurement_model():
         theta_r.append(robot_theta)
         i += 1
     return x_r, y_r, theta_r
-
-'''
-def return_x():
-    return x_r
-def return_y():
-    return y_r
-def return_theta():
-    return theta_r
-
-calculate_measurement_model()
-x_test = return_x()
-y_test = return_y()
-
-test, test2, test3 = calculate_measurement_model()
-plt.plot(test, test2, '-')
-plt.show()
-'''
