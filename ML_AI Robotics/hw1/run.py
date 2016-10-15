@@ -21,13 +21,15 @@ lms_x_y = []
 for key in landmarks:
     lms_x_y.append([key[1], key[2]])
 
+obst = []
 def obstacles(x, y):
     o_x = x - 0.5
     o_y = y - 0.5
-    obst = []
     obst.append([o_x, o_y])
-    print obst
+    return obst
 
+def get_obstacles():
+    return obst
 #Cast each landmark to int
 for key in lms_x_y:
     max_x = math.ceil(key[0])
@@ -52,14 +54,30 @@ def get_neighbors(cell):
     nbrs = []
 
     for i in dirs:
-        nbrs.append(((cell[0] + i[0]), (cell[1] + i[1])))
+        nbrs.append([(cell[0] + i[0]), (cell[1] + i[1])])
     return nbrs
+
+def check_obst(cell):
+    neighbors = get_neighbors(cell)
+    obstacles = get_obstacles()
+    real_neighbors = []
+
+    for i in neighbors:
+        is_match = True
+        for j in obstacles:
+            if i == j:
+                print "MATCH", i, j
+                is_match = False
+                break
+        if is_match == True:
+            real_neighbors.append(i)
+            ax.plot(i[0], i[1], 'ro')
+            ax.hold
+    print real_neighbors
 
 x, y = start_cell(2, 2)
 start_c = [x, y]
-neighbors = get_neighbors(start_c)
-for key in neighbors:
-    ax.plot(key[0], key[1], 'ro')
+check_obst(start_c)
 ax.plot(start_c[0], start_c[1], 'rs')
 ax.hold
 
